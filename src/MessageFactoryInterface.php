@@ -2,9 +2,9 @@
 
 namespace Icicle\Psr7Bridge;
 
-use Icicle\Http\Message\RequestInterface as IcicleRequest;
-use Icicle\Http\Message\ResponseInterface as IcicleResponse;
-use Icicle\Http\Message\UriInterface as IcicleUri;
+use Icicle\Http\Message\Request as IcicleRequest;
+use Icicle\Http\Message\Response as IcicleResponse;
+use Icicle\Http\Message\Uri as IcicleUri;
 
 interface MessageFactoryInterface
 {
@@ -23,7 +23,7 @@ interface MessageFactoryInterface
     public function createRequest(IcicleRequest $request);
 
     /**
-     * @param \Icicle\Http\Message\ResponseInterface $response
+     * @param \Icicle\Http\Message\Response $response
      *
      * @return \Psr\Http\Message\ResponseInterface
      */

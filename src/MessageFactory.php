@@ -2,9 +2,9 @@
 
 namespace Icicle\Psr7Bridge;
 
-use Icicle\Http\Message\RequestInterface as IcicleRequest;
-use Icicle\Http\Message\ResponseInterface as IcicleResponse;
-use Icicle\Http\Message\UriInterface as IcicleUri;
+use Icicle\Http\Message\Request as IcicleRequest;
+use Icicle\Http\Message\Response as IcicleResponse;
+use Icicle\Http\Message\Uri as IcicleUri;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Uri as PsrUri;
 use Zend\Diactoros\Request as PsrRequest;

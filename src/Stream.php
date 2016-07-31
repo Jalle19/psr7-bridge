@@ -3,30 +3,33 @@ namespace Icicle\Psr7Bridge;
 
 use Icicle\Coroutine\Coroutine;
 use Icicle\Loop;
-use Icicle\Stream\ReadableStreamInterface;
-use Icicle\Stream\SeekableStreamInterface;
-use Icicle\Stream\StreamInterface;
-use Icicle\Stream\StreamResourceInterface;
-use Icicle\Stream\WritableStreamInterface;
+use Icicle\Stream\ReadableStream;
+use Icicle\Stream\SeekableStream;
+use Icicle\Stream\Stream as StreamInterface;
+use Icicle\Stream\StreamResource;
+use Icicle\Stream\WritableStream;
 use Psr\Http\Message\StreamInterface as PsrStreamInterface;
 use RuntimeException;
 
 class Stream implements PsrStreamInterface
 {
+
     const CHUNK_SIZE = 8192;
 
     /**
-     * @var \Icicle\Stream\StreamInterface
+     * @var \Icicle\Stream\Stream
      */
     private $stream;
 
+
     /**
-     * @param \Icicle\Stream\StreamInterface $stream
+     * @param \Icicle\Stream\Stream $stream
      */
     public function __construct(StreamInterface $stream)
     {
         $this->stream = $stream;
     }
+
 
     /**
      * {@inheritdoc}
@@ -94,7 +97,7 @@ class Stream implements PsrStreamInterface
         $stream = $this->stream;
         $this->stream = null;
 
-        if ($stream instanceof StreamResourceInterface) {
+        if ($stream instanceof StreamResource) {
             return $stream->getResource();
         }
         return null;
@@ -135,7 +138,7 @@ class Stream implements PsrStreamInterface
      */
     public function isSeekable()
     {
-        return ($this->stream instanceof SeekableStreamInterface);
+        return ($this->stream instanceof SeekableStream);
     }
 
     /**
@@ -169,7 +172,7 @@ class Stream implements PsrStreamInterface
      */
     public function isWritable()
     {
-        return ($this->stream instanceof WritableStreamInterface);
+        return ($this->stream instanceof WritableStream);
     }
 
     /**
@@ -177,7 +180,7 @@ class Stream implements PsrStreamInterface
      */
     public function isReadable()
     {
-        return ($this->stream instanceof ReadableStreamInterface);
+        return ($this->stream instanceof ReadableStream);
     }
 
     /**
@@ -199,7 +202,7 @@ class Stream implements PsrStreamInterface
      */
     public function getMetadata($key = null)
     {
-        if ($this->stream instanceof StreamResourceInterface) {
+        if ($this->stream instanceof StreamResource) {
             $resource = $this->stream->getResource();
 
             $metadata = stream_get_meta_data($resource);
