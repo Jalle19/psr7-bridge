@@ -41,13 +41,25 @@ final class MessageFactory implements MessageFactoryInterface
 
     public function createServerRequest(IcicleRequest $icicleRequest)
     {
+        $body = new Stream($icicleRequest->getBody());
+
+        // Parse the POST body for form submissions
+        $parsedBody = null;
+
+        if ($icicleRequest->getHeader('Content-Type') === 'application/x-www-form-urlencoded') {
+            parse_str($body->getContents(), $parsedBody);
+        }
+
         $request = new ServerRequest(
             [],
             [],
             $this->createUri($icicleRequest->getUri()),
             $icicleRequest->getMethod(),
-            new Stream($icicleRequest->getBody()),
-            $icicleRequest->getHeaders()
+            $body,
+            $icicleRequest->getHeaders(),
+            [],
+            [],
+            $parsedBody
         );
 
         $request = $request->withProtocolVersion($icicleRequest->getProtocolVersion());
